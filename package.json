@@ -1,0 +1,23 @@
+{
+  "name": "hubot-vts-support",
+  "version": "1.0.0",
+  "description": "Keeps track of who's on support",
+  "main": "vts-support.coffee",
+  "scripts": {
+    "test": "mocha --compilers coffee:coffee-script/register"
+  },
+  "author": "Shawn O'Mara",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^2.1.0",
+    "coffee-script": "^1.9.1",
+    "hubot-mock-adapter": "^1.0.0",
+    "sinon": "^1.12.2"
+  },
+  "dependencies": {
+    "cron": "^1.0.8",
+    "hubot": "^2.11.1",
+    "lodash": "^3.3.1",
+    "moment": "^2.9.0"
+  }
+}
