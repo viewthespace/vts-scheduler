@@ -1,9 +1,11 @@
 path = require("path");
 expect = require('chai').expect
 Robot = require("hubot/src/robot")
+sinon = require('sinon')
+moment = require('moment')
 TextMessage = require("hubot/src/message").TextMessage
 
-robot = undefined
+robot = clock = undefined
 
 describe 'VTS Support', ->
   robot = undefined
@@ -11,6 +13,7 @@ describe 'VTS Support', ->
   adapter = undefined
 
   beforeEach (done) ->
+    clock = sinon.useFakeTimers(new Date(2015,2,2).getTime())
     robot = new Robot(null, 'mock-adapter', false, 'Bot')
     robot.adapter.on 'connected', ->
       process.env.HUBOT_AUTH_ADMIN = '1'
@@ -22,15 +25,21 @@ describe 'VTS Support', ->
 
   afterEach ->
     robot.shutdown()
+    clock.restore()
 
   it 'tells me who is on support', (done) ->
 
     adapter.on 'send', (envelope, strings) ->
-      expect(strings[0]).to.eq('@ShawnOMara is on support today')
+      console.log strings
+      expect(strings[0]).to.eq '@ShawnOMara is on support today'
       done()
 
     adapter.receive new TextMessage(user, '@Bot who is on support?')
 
-  it 'can switch support days', ->
+  it 'broadcasts who\'s on support each morning at 8 am EST', (done)->
 
+    adapter.on 'send', (envelope, strings) ->
+      expect(strings[0]).to.eq '@all, @ShawnOMara is on support today'
+      done()
 
+    clock.tick(1000 * 60 * 60 * 8)

@@ -10,7 +10,6 @@ NERDS_ROOM = '14579_nerds@conf.hipchat.com'
 
 SUPPORT_ENGINEERS = [
   '@ShawnOMara'
-  '@Basil'
   '@ErikPearson'
   '@IanForsyth'
   '@Paul'
@@ -19,6 +18,7 @@ SUPPORT_ENGINEERS = [
   '@KarlBaum'
   '@kenliu'
   '@AndrewLin'
+  '@Basil'
 ]
 
 START_DATE = moment('2015-03-01')
@@ -46,18 +46,22 @@ whosOnSupport = (schedule)->
   key = 'vts:support:' + moment().format('MMDDYYYY')
   "#{schedule[key]} is on support today"
 
-daily_reminder = (message)->
-  message = "@all, " + message
-  new CronJob CRON_SCHEDULE, ->
-    robot.messageRoom(NERDS_ROOM,  message)
-  , null, true, CRON_TIMEZONE
 
 
 module.exports = (robot) ->
 
   schedule = createSchedule()
   #console.log schedule
-  #daily_reminder()
+  message = "@all, " + whosOnSupport(schedule)
+  console.log 'starting cron'
+
+  new CronJob CRON_SCHEDULE, ->
+    console.log 'Cron triggered'
+    robot.messageRoom(NERDS_ROOM,  message)
+  , null, true, CRON_TIMEZONE
 
   robot.respond /who is on support\?/i, (msg)->
     msg.send(whosOnSupport(schedule))
+
+
+
