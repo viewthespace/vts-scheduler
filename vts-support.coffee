@@ -1,8 +1,9 @@
 _ = require('lodash')
 moment = require('moment')
-CronJob = require('cron').CronJob;
+CronJob = require('cron').CronJob
+restler = require('restler')
 
-CRON_SCHEDULE = '0 8 * * 1-5' # Weekdays 8:00 AM
+CRON_SCHEDULE = '0 13 * * 1-5' # Weekdays 8:00 AM
 
 CRON_TIMEZONE = 'America/New_York'
 
@@ -46,22 +47,22 @@ whosOnSupport = (schedule)->
   key = 'vts:support:' + moment().format('MMDDYYYY')
   "#{schedule[key]} is on support today"
 
-
+unstartedStoryCnt = (cb)->
+  endpoint = 'https://www.pivotaltracker.com/services/v5/projects/1062572/stories?with_state=unstarted&limit=100'
+  restler.get(endpoint, { headers: {'X-TrackerToken': process.env.TRACKER_TOKEN} } ).on 'complete', (result)->
+    cb(result.length)
+  
 
 module.exports = (robot) ->
 
+  console.error 'Please set TRACKER_TOKEN env variable' unless process.env.TRACKER_TOKEN
+
   schedule = createSchedule()
-  #console.log schedule
-  message = "@all, " + whosOnSupport(schedule)
-  console.log 'starting cron'
 
   new CronJob CRON_SCHEDULE, ->
-    console.log 'Cron triggered'
-    robot.messageRoom(NERDS_ROOM,  message)
+    unstartedStoryCnt (cnt)->
+      robot.messageRoom(NERDS_ROOM,  "@all, #{whosOnSupport(schedule)} and there's #{cnt} unstarted support issues")
   , null, true, CRON_TIMEZONE
 
   robot.respond /who is on support\?/i, (msg)->
     msg.send(whosOnSupport(schedule))
-
-
-

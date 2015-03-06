@@ -39,7 +39,7 @@ describe 'VTS Support', ->
   it 'broadcasts who\'s on support each morning at 8 am EST', (done)->
 
     adapter.on 'send', (envelope, strings) ->
-      expect(strings[0]).to.eq '@all, @ShawnOMara is on support today'
+      expect(strings[0]).to.match /@all, @ShawnOMara is on support today and there's \d+ unstarted support issues/
       done()
 
     clock.tick(1000 * 60 * 60 * 8)
