@@ -1,15 +1,28 @@
 {
   "name": "vts-scheduler",
   "version": "1.0.0",
-  "description": "VTS Operation Schedules",
-  "main": "index.js",
+  "description": "VTS Operation Scheduler",
+  "main": "src/schedule.js",
   "scripts": {
-    "test": "mocha 'spec/**/*.coffee' --compilers coffee:coffee-script/register"
+    "test": "env REDIS_URL=http://127.0.0.1:6379 mocha 'spec/**/*.js'"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "coffee-script": "^1.9.1",
+    "mocha": "^2.2.1",
+    "should": "^5.1.0",
     "sinon": "^1.13.0"
+  },
+  "dependencies": {
+    "cron": "^1.0.9",
+    "es6-promise": "^2.0.1",
+    "lodash": "^3.4.0",
+    "moment": "^2.9.0",
+    "redis": "^0.12.1"
+  },
+   "repository": {
+    "type": "git",
+    "url": "http://github.com/ncb000gt/node-cron.git"
   }
 }
