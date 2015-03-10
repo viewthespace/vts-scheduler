@@ -23,6 +23,6 @@
   },
    "repository": {
     "type": "git",
-    "url": "http://github.com/ncb000gt/node-cron.git"
+    "url": "https://github.com/viewthespace/vts-scheduler"
   }
 }
