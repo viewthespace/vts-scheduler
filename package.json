@@ -1,6 +1,6 @@
 {
   "name": "vts-scheduler",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "VTS Operation Scheduler",
   "main": "src/schedule.js",
   "scripts": {
