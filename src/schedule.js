@@ -207,6 +207,7 @@ Schedule.prototype.switch = function(personOne, personTwo, cb) {
   var indexTwo = this.order.indexOf(personTwo);
   this.order[indexOne] = personTwo;
   this.order[indexTwo] = personOne;
+  this.calcScheduleHash();
   this.setOrder().then(cb, this.handleError)
 };
 
