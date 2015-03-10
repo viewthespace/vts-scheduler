@@ -22,6 +22,7 @@ var CronJob = require('cron').CronJob;
  */
 function Schedule(opts) {
   this.opts = _.defaults(opts, this.DEFAULTS);
+  this.opts.startDate = moment(this.opts.startDate)
 }
 
 

@@ -8,7 +8,7 @@ var moment = require('moment');
 
 
 var schedule, schedule2, schedule3, customSchedule;
-var startDate =  moment('01-01-2015', 'MM-DD-YYYY');
+var startDate =  Date.parse('Thu, 01 Jan 2015 00:00:00 UTC-0500');
 var startDateClone = moment(startDate);
 
 
