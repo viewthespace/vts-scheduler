@@ -2,6 +2,9 @@
 
 
 ```Coffee
+Schedule = require('vts-scheduler')
+
+
 schedule = new Schedule
   name: 'schedule'
   people: [ 'Bob', 'Peter', 'Romulus' ]
