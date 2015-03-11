@@ -1,5 +1,9 @@
+### Install
+
+ ```npm install vts-scheduler```
 
 
+### Usage
 
 ```Coffee
 Schedule = require('vts-scheduler')
