@@ -11,6 +11,13 @@ function StorageService() {
   }
   var parsedUrl = urlParser.parse(process.env.REDIS_URL);
   this.client = redis.createClient(parsedUrl.port, parsedUrl.hostname);
+
+  if(parsedUrl.auth) {
+
+    this.client.auth(parsedUrl.auth.split(':')[1]);
+
+  }
+
 }
 
 
