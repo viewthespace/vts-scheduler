@@ -198,6 +198,17 @@ Schedule.prototype.whosOnToday = function() {
 
 
 
+Schedule.prototype.whosOnNext = function() {
+  var whosOnToday = this.whosOnToday();
+  var users;
+  var date = moment();
+  while(!users || _.isEqual(whosOnToday, users)){
+    users = this.scheduleHash[date.add('days', 1).format('YYYYMMDD')];
+  }
+  return users;
+};
+
+
 /**
  * Syncs schedule order by merging persisted order and people source.
  * @public

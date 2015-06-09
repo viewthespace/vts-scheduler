@@ -140,6 +140,16 @@ describe('whosOnToday', function() {
 
 
 
+describe('whosOnNext', function() {
+
+  it('gives name of who\'s on next for schedule 1', function(){
+    sinon.useFakeTimers(startDateClone.add('days', 0).valueOf());
+    schedule.whosOnNext().should.eql(['Peter']);
+  });
+
+});
+
+
 
 describe('on', function(){
 
